@@ -26,6 +26,10 @@ const atendimentosController = {
                 },
             });
 
+            if(!listAtendimentosId) {
+                return res.status(404).json("Id não encontrado")
+            };
+
             return res.status(200).json(listAtendimentosId);
         } catch (error) {
             return res.status(500).json("Algo errado aconteceu 🚨");
@@ -38,8 +42,8 @@ const atendimentosController = {
             const { data_atendimento, observacao, id_paciente, id_psicologo } = req.body;
 
             const newAtendimento = await AtendimentosModel.create({
-                paciente_id,
-                psicologo_id,
+                id_paciente,
+                id_psicologo,
                 data_atendimento,
                 observacao,
             });

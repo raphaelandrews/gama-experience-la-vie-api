@@ -20,6 +20,10 @@ const pacientesController = {
                 }
             });
 
+            if(!listPacienteId) {
+                return res.status(404).json("Id não encontrado")
+            };
+
             return res.status(200).json(listPacienteId);
         } catch (error) {
             console.log(error);
@@ -58,7 +62,7 @@ const pacientesController = {
                 },
             });
 
-            return res.status(200).json(updatePaciente);
+            return res.status(200).json("Dados atualizados");
         } catch (error) {
             return res.status(400).json("Algo errado aconteceu 🚨");
         }
@@ -68,11 +72,15 @@ const pacientesController = {
         try {
             const { id } = req.params;
 
-            await PacientesModel.destroy({
+            const deletePaciente = await PacientesModel.destroy({
                 where: {
                     paciente_id: id,
                 },
             });
+
+            if(!deletePaciente) {
+                return res.status(404).json("Id não encontrado")
+            };
 
             return res.sendStatus(204);
         } catch (error) {
