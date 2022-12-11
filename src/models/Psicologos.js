@@ -14,6 +14,7 @@ const PsicologosModel = db.define(
         },
         email: {
             type: DataTypes.STRING,
+            unique: true,
         },
         apresentacao: {
             type: DataTypes.STRING,

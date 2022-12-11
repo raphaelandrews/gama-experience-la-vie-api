@@ -24,14 +24,14 @@ const psicologosController = {
                 }
             });
 
-            if(!listPsicologoId) {
+            if (!listPsicologoId) {
                 return res.status(404).json("Id não encontrado")
             };
 
             return res.status(200).json(listPsicologoId);
         } catch (error) {
             console.log(error);
-            return res.status(404).json("Algo errado aconteceu 🚨");
+            return res.status(500).json("Algo errado aconteceu 🚨");
         }
     },
 
@@ -50,7 +50,9 @@ const psicologosController = {
 
             return res.status(201).json(newPsicologo);
         } catch (error) {
-            console.log(error)
+            if (error.name === 'SequelizeUniqueConstraintError') {
+                return res.status(422).json('Email já cadastrado')
+            }
             return res.status(500).json("Algo errado aconteceu 🚨");
         }
     },
@@ -86,10 +88,10 @@ const psicologosController = {
                 },
             });
 
-            if(!deletePsicologo) {
+            if (!deletePsicologo) {
                 return res.status(404).json("Id não encontrado")
             };
-            
+
             return res.sendStatus(204);
         } catch (error) {
             return res.status(500).json("Algo errado aconteceu 🚨");

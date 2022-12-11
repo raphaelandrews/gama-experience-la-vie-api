@@ -1,4 +1,6 @@
 const { AtendimentosModel, PsicologosModel, PacientesModel } = require("../models");
+const base64 = require('base-64');
+const utf8 = require('utf8');
 
 const atendimentosController = {
 
@@ -7,7 +9,7 @@ const atendimentosController = {
         try {
             const listAtendimentos = await AtendimentosModel.findAll({
                 includes: PsicologosModel,
-                 PacientesModel,
+                PacientesModel,
             });
             return res.status(200).json(listAtendimentos);
         } catch (err) {
@@ -26,7 +28,7 @@ const atendimentosController = {
                 },
             });
 
-            if(!listAtendimentosId) {
+            if (!listAtendimentosId) {
                 return res.status(404).json("Id não encontrado")
             };
 
@@ -39,7 +41,12 @@ const atendimentosController = {
     // Criar Atendimento 
     async create(req, res) {
         try {
-            const { data_atendimento, observacao, id_paciente, id_psicologo } = req.body;
+            const encoded = req.headers.authorization.slice(7).split(".")
+            const bytes = base64.decode(encoded[1]);
+            const text = utf8.decode(bytes);
+            const id_psicologo = JSON.parse(text).id;
+
+            const { data_atendimento, observacao, id_paciente } = req.body;
 
             const newAtendimento = await AtendimentosModel.create({
                 id_paciente,
@@ -57,4 +64,3 @@ const atendimentosController = {
 }
 
 module.exports = atendimentosController;
-

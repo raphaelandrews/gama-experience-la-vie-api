@@ -5,7 +5,7 @@ USE db_lavie;
 CREATE TABLE pacientes (
   paciente_id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
   nome VARCHAR(200) NOT NULL,
-  email VARCHAR(100) NOT NULL,
+  email VARCHAR(100) NOT NULL UNIQUE,
   idade DATE NOT NULL,
   create_date DATE,
   update_date DATE
@@ -14,7 +14,7 @@ CREATE TABLE pacientes (
 CREATE TABLE psicologos (
   psicologo_id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
   nome VARCHAR(200) NOT NULL,
-  email VARCHAR(100) NOT NULL,
+  email VARCHAR(100) NOT NULL UNIQUE,
   apresentacao VARCHAR(400) NOT NULL,
   senha VARCHAR(200) NULL,
   create_date DATE,

@@ -20,7 +20,7 @@ const pacientesController = {
                 }
             });
 
-            if(!listPacienteId) {
+            if (!listPacienteId) {
                 return res.status(404).json("Id não encontrado")
             };
 
@@ -43,10 +43,15 @@ const pacientesController = {
 
             return res.status(201).json(newPaciente);
         } catch (error) {
+            if (error.name === 'SequelizeUniqueConstraintError') {
+                return res.status(422).json('Email já cadastrado')
+            }
             return res.status(500).json("Algo errado aconteceu 🚨");
         }
     },
-
+    /* errors: [
+       ValidationErrorItem {
+           message: 'email must be unique',*/
     async update(req, res) {
         try {
             const { id } = req.params;
@@ -78,7 +83,7 @@ const pacientesController = {
                 },
             });
 
-            if(!deletePaciente) {
+            if (!deletePaciente) {
                 return res.status(404).json("Id não encontrado")
             };
 

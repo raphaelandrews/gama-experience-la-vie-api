@@ -7,7 +7,6 @@ const authController = {
     async login(req, res) {
         const { email, senha } = req.body;
 
-
         const login = await PsicologosModel.findOne({
             where: {
                 email,
