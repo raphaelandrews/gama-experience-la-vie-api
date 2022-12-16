@@ -13,10 +13,13 @@ const atendimentosController = {
             });
             return res.status(200).json(listAtendimentos);
         } catch (err) {
+            if (err.name === 'SequelizeForeignKeyConstraintError') {
+                return res.status(400).json('Não é possível deletar o psicólogo pois ele possui atendimentos ativos')
+            }
             return res.status(500).json("Algo errado aconteceu 🚨");
         }
     },
-
+    
     // Listar Atendimento por Id
     async listId(req, res) {
         try {
@@ -34,6 +37,7 @@ const atendimentosController = {
 
             return res.status(200).json(listAtendimentosId);
         } catch (error) {
+            console.error(error);
             return res.status(500).json("Algo errado aconteceu 🚨");
         }
     },

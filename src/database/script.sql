@@ -6,9 +6,7 @@ CREATE TABLE pacientes (
   paciente_id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
   nome VARCHAR(200) NOT NULL,
   email VARCHAR(100) NOT NULL UNIQUE,
-  idade DATE NOT NULL,
-  create_date DATE,
-  update_date DATE
+  idade DATE NOT NULL
 );
 
 CREATE TABLE psicologos (
@@ -16,17 +14,13 @@ CREATE TABLE psicologos (
   nome VARCHAR(200) NOT NULL,
   email VARCHAR(100) NOT NULL UNIQUE,
   apresentacao VARCHAR(400) NOT NULL,
-  senha VARCHAR(200) NULL,
-  create_date DATE,
-  update_date DATE
+  senha VARCHAR(200) NULL
 );
 
 CREATE TABLE atendimentos (
   id_atendimento INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
   data_atendimento DATE NOT NULL,
   observacao TEXT NOT NULL,
-  create_date DATE,
-  update_date DATE,
   id_paciente INTEGER NOT NULL,
   CONSTRAINT atendimento_paciente FOREIGN KEY 
             (id_paciente) REFERENCES pacientes(paciente_id),

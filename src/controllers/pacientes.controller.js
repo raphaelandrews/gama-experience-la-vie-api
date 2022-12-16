@@ -1,3 +1,4 @@
+const { AtendimentosModel } = require("../models");
 const PacientesModel = require("../models/Pacientes");
 
 const pacientesController = {
@@ -49,9 +50,7 @@ const pacientesController = {
             return res.status(500).json("Algo errado aconteceu 🚨");
         }
     },
-    /* errors: [
-       ValidationErrorItem {
-           message: 'email must be unique',*/
+    
     async update(req, res) {
         try {
             const { id } = req.params;

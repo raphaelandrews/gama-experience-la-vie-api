@@ -1,5 +1,6 @@
 const PsicologosModel = require("../models/Psicologos");
 const bcrypt = require("bcrypt");
+const { AtendimentosModel } = require("../models");
 
 const psicologosController = {
     async list(req, res) {
@@ -21,7 +22,8 @@ const psicologosController = {
                 attributes: ['psicologo_id', 'nome', 'email', 'apresentacao'],
                 where: {
                     psicologo_id: id,
-                }
+                },
+                    includes: AtendimentosModel,
             });
 
             if (!listPsicologoId) {
@@ -30,7 +32,6 @@ const psicologosController = {
 
             return res.status(200).json(listPsicologoId);
         } catch (error) {
-            console.log(error);
             return res.status(500).json("Algo errado aconteceu 🚨");
         }
     },
@@ -51,7 +52,7 @@ const psicologosController = {
             return res.status(201).json(newPsicologo);
         } catch (error) {
             if (error.name === 'SequelizeUniqueConstraintError') {
-                return res.status(422).json('Email já cadastrado')
+                return res.status(400).json('Email já cadastrado')
             }
             return res.status(500).json("Algo errado aconteceu 🚨");
         }
@@ -94,6 +95,8 @@ const psicologosController = {
 
             return res.sendStatus(204);
         } catch (error) {
+          
+            console.log(error);
             return res.status(500).json("Algo errado aconteceu 🚨");
         }
     },

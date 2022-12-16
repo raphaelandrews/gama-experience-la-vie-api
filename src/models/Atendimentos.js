@@ -10,32 +10,35 @@ const AtendimentosModel = db.define(
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true,
+            allowNull: false,
         },
         data_atendimento: {
             type: DataTypes.DATE,
+            allowNull: false,
         },
         observacao: {
             type: DataTypes.TEXT,
-        },
-        create_date: {
-            type: DataTypes.DATE,
-        },
-        update_date: {
-            type: DataTypes.DATE,
+            allowNull: false,
         },
         id_paciente: {
             type: DataTypes.INTEGER,
+            allowNull: false,
             references: {
                 model: PacientesModel,
                 key: "paciente_id",
             },
+            onUpdate: 'CASCADE',
+            onDelete: 'CASCADE'
         },
         id_psicologo: {
             type: DataTypes.INTEGER,
+            allowNull: false,
             references: {
                 model: PsicologosModel,
                 key: "psicologo_id",
             },
+            onUpdate: 'CASCADE',
+            onDelete: 'CASCADE'
         },
     },
     {

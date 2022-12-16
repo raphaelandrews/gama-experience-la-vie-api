@@ -8,22 +8,20 @@ const PacientesModel = db.define(
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true,
+            allowNull: false,
         },
         nome: {
             type: DataTypes.STRING,
+            allowNull: false,
         },
         email: {
             type: DataTypes.STRING,
             unique: true,
+            allowNull: false,
         },
         idade: {
             type: DataTypes.DATE,
-        },
-        create_date: {
-            type: DataTypes.DATE,
-        },
-        update_date: {
-            type: DataTypes.DATE,
+            allowNull: false,
         },
     },
     {
